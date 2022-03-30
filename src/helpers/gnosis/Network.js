@@ -1,7 +1,7 @@
-import { gnosis, headers } from "../../Constants";
+import { appName, gnosis, headers } from "../../Constants";
 
 const getChainId = () => {
-  return window.fucksapp.network.chainId;
+  return window[appName].network.chainId;
 };
 
 export default {

@@ -1,0 +1,39 @@
+.hover-tools-container {
+  display: inline-block;
+  position: relative;
+}
+.hover-tools-container:hover .tool-container {
+  display: block;
+}
+
+.tool-container {
+  display: none;
+  position: absolute;
+  top: calc(50% - 12px);
+  right: 0;
+  justify-content: center;
+  fill: black;
+}
+
+.tool {
+  width: auto;
+  height: 14px;
+  border-radius: 4px;
+  margin-left: 2px;
+  margin-right: 2px;
+  padding: 4px;
+  cursor: pointer;
+  background: white;
+  -webkit-filter: invert(0%);
+  filter: invert(0%);
+}
+.tool:hover {
+  -webkit-filter: invert(100%);
+  filter: invert(100%);
+}
+.tool:first-child {
+  margin-left: none;
+}
+.tool:last-child {
+  margin-right: none;
+}

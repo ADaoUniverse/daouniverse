@@ -6,11 +6,17 @@ const headers = {
   },
 };
 
+const supportedNetworks = [
+  { label: "homestead", value: 1 },
+  { label: "rinkeby", value: 4 },
+  { label: "polygon", value: 137 },
+];
+
 const gnosis = {
   baseapi: {
     1: "https://safe-transaction.mainnet.gnosis.io",
-    5: "https://safe-transaction.goerli.gnosis.io",
     4: "https://safe-transaction.rinkeby.gnosis.io",
+    5: "https://safe-transaction.goerli.gnosis.io",
     10: "https://safe-transaction.optimism.gnosis.io",
     56: "https://safe-transaction.bsc.gnosis.io",
     100: "https://safe-transaction.xdai.gnosis.io",
@@ -27,10 +33,11 @@ const gnosis = {
   },
 };
 
-const _baseApi = () => gnosis.baseapi[window.fucksapp.network.chainId];
+const _baseApi = () => gnosis.baseapi[window[appName].network.chainId];
 
 module.exports = {
   appName,
   headers,
+  supportedNetworks,
   gnosis,
 };

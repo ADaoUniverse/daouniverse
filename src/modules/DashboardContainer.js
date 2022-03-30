@@ -31,6 +31,8 @@ class DashboardInit extends React.Component {
   }
 
   async init() {
+    window[appName].databridge.sub(DataBridge.TOPIC.REQUEST_NETWORK_CHANGE, this._requestNetworkChange);
+
     await this.syncWalletData();
     if (this.props.userClickedLogin) {
       await this.connectWallet();
@@ -57,10 +59,6 @@ class DashboardInit extends React.Component {
     const network = await this._getWalletNetwork();
     if (_network != network) {
       this._setNetwork(network, _network);
-      // todo: handle this in module by receiving network change
-      // if(!gnosis.baseapi[network.chainId]) {
-      // alert("Network not supported!")
-      // }
     }
     return network;
   }
@@ -84,6 +82,35 @@ class DashboardInit extends React.Component {
     }
   }
 
+  async _requestNetworkChange(chainIdVal) {
+    const chainId = `0x${chainIdVal}`;
+    console.log(chainId);
+    try {
+      await window.ethereum.request({
+        method: "wallet_switchEthereumChain",
+        params: [{ chainId }],
+      });
+    } catch (error) {
+      if (error.code === 4902) {
+        alert("need to add network to metamask");
+        // try {
+        //   await window.ethereum.request({
+        //     method: "wallet_addEthereumChain",
+        //     params: [
+        //       {
+        //         chainId: "0x61",
+        //         rpcUrl: "https://data-seed-prebsc-1-s1.binance.org:8545/",
+        //       },
+        //     ],
+        //   });
+        // } catch (addError) {
+        //   console.error(addError);
+        // }
+      }
+      console.error(error);
+    }
+  }
+
   _setAccount(account, prevAccount) {
     window[appName].prevAccount = prevAccount;
     window[appName].account = account;
@@ -99,7 +126,7 @@ class DashboardInit extends React.Component {
   }
 
   render() {
-    const shouldRenderDashboard = (window[appName].account && window[appName].network);
+    const shouldRenderDashboard = window[appName].account && window[appName].network;
     return shouldRenderDashboard ? <Dashboard /> : <LoginScreen />;
   }
 }

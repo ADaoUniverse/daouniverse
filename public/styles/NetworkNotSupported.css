@@ -1,0 +1,5 @@
+.networkNotSupported {
+  display: flex;
+  background-color: red;
+  color: white;
+}

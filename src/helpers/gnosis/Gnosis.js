@@ -1,5 +1,7 @@
 import { ethers } from "ethers";
 
+import { appName } from "../../Constants";
+
 // methods to setup safe
 import safeAbi from "../../abi/gnosis/safe.json";
 // interaction with contract
@@ -15,7 +17,7 @@ class Gnosis {
 
   init() {
     this.safeInterface = new ethers.utils.Interface(safeAbi.abi);
-    this.contractFactory = new ethers.Contract(this._getFactoryAddress(), proxyFactoryAbi.abi, window.fucksapp.wallet);
+    this.contractFactory = new ethers.Contract(this._getFactoryAddress(), proxyFactoryAbi.abi, window[appName].wallet);
   }
 
   async createSafe(owners, threshold) {
@@ -47,19 +49,19 @@ class Gnosis {
   }
 
   _getFactoryAddress() {
-    const address = proxyFactoryAbi.networkAddresses[window.fucksapp.network.chainId];
+    const address = proxyFactoryAbi.networkAddresses[window[appName].network.chainId];
     if (!address) throw "Network not supported";
     return address;
   }
 
   _getSafeAddress() {
-    const address = safeAbi.networkAddresses[window.fucksapp.network.chainId];
+    const address = safeAbi.networkAddresses[window[appName].network.chainId];
     if (!address) throw "Network not supported";
     return address;
   }
 
   _getFallbackAddress() {
-    const address = fallbackAbi.networkAddresses[window.fucksapp.network.chainId];
+    const address = fallbackAbi.networkAddresses[window[appName].network.chainId];
     if (!address) throw "Network not supported";
     return address;
   }

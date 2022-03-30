@@ -3,6 +3,7 @@ class DataBridge {
     ACCOUNT_CHANGE: "account_change",
     NETWORK_CHANGE: "network_change",
     CHANGE_SCREEN: { MAIN: "main_cs", DASHBOARD: "dashboard_cs" },
+    REQUEST_NETWORK_CHANGE: "request_network_change",
   };
 
   topics = {};
