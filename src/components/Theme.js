@@ -1,4 +1,6 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
+import { appName } from "../Constants";
+import DataBridge from "../helpers/DataBridge";
 
 const darkTheme = () => {
   document.documentElement.style.setProperty("--bg-color", "#001E3C");
@@ -19,19 +21,19 @@ const lightTheme = () => {
 };
 
 export default () => {
-  const [theme, setTheme] = useState(false);
-
-  const toggleTheme = () => {
-    setTheme(!theme);
+  const setTheme = (isDark) => {
     // todo: save theme to localstorage for persistence
-    if (theme) {
+    if (isDark) {
       darkTheme();
+      console.log("dark");
     } else {
       lightTheme();
+      console.log("light");
     }
   };
   useEffect(() => {
-    toggleTheme();
+    lightTheme();
+    window[appName].databridge.sub(DataBridge.TOPIC.REQUEST_THEME_TOGGLE, setTheme);
   }, []);
 
   return <></>;

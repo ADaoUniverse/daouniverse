@@ -3,6 +3,7 @@
 @import "LoginScreen.css";
 @import "NetworkNotSupported.css";
 @import "HoverTooltip.css";
+@import "Toggle.css";
 
 button {
   padding-left: 24px;

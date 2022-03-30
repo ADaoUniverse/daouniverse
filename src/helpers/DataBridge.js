@@ -4,6 +4,7 @@ class DataBridge {
     NETWORK_CHANGE: "network_change",
     CHANGE_SCREEN: { MAIN: "main_cs", DASHBOARD: "dashboard_cs" },
     REQUEST_NETWORK_CHANGE: "request_network_change",
+    REQUEST_THEME_TOGGLE: "request_theme_toggle",
   };
 
   topics = {};
