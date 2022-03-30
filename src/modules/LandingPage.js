@@ -12,7 +12,7 @@ class LandingPage extends React.Component {
   }
 
   login() {
-    window[appName].databridge.pub(DataBridge.TOPIC.CHANGE_SCREEN, <DashboardContainer userClickedLogin={true} />);
+    window[appName].databridge.pub(DataBridge.TOPIC.CHANGE_SCREEN.MAIN, <DashboardContainer userClickedLogin={true} />);
   }
 
   render() {

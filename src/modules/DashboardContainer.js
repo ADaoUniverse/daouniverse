@@ -4,7 +4,7 @@ import { ethers } from "ethers";
 import { appName } from "../Constants";
 import DataBridge from "../helpers/DataBridge";
 
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import LoginScreen from "../components/LoginScreen";
 
 class DashboardInit extends React.Component {

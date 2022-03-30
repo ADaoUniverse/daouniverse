@@ -1,9 +1,6 @@
 import React from "react";
 
-import LandingPage from "../modules/LandingPage";
-
 import { appName } from "../Constants";
-import DataBridge from "../helpers/DataBridge";
 
 class Screens extends React.Component {
   constructor(props) {
@@ -18,7 +15,7 @@ class Screens extends React.Component {
   }
 
   componentDidMount() {
-    window[appName].databridge.sub(DataBridge.TOPIC.CHANGE_SCREEN, this.changeScreen);
+    window[appName].databridge.sub(this.props.databridgeTopic, this.changeScreen);
   }
 
   changeScreen(newScreen) {
@@ -26,7 +23,7 @@ class Screens extends React.Component {
   }
 
   render() {
-    return this.state.current || this.props.default || <LandingPage />;
+    return this.state.current || this.props.default;
   }
 }
 

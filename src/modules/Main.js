@@ -7,7 +7,6 @@ import Theme from "../components/Theme";
 import Screens from "../components/Screens";
 import LandingPage from "./LandingPage";
 
-
 class Main extends React.Component {
   constructor(props) {
     super(props);
@@ -20,7 +19,11 @@ class Main extends React.Component {
     return (
       <div>
         <Theme />
-        <Screens current={<LandingPage />} default={<LandingPage />} />
+        <Screens
+          databridgeTopic={DataBridge.TOPIC.CHANGE_SCREEN.MAIN}
+          current={<LandingPage />}
+          default={<LandingPage />}
+        />
       </div>
     );
   }

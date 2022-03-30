@@ -2,7 +2,7 @@ class DataBridge {
   static TOPIC = {
     ACCOUNT_CHANGE: "account_change",
     NETWORK_CHANGE: "network_change",
-    CHANGE_SCREEN: "change_screen",
+    CHANGE_SCREEN: { MAIN: "main_cs", DASHBOARD: "dashboard_cs" },
   };
 
   topics = {};
