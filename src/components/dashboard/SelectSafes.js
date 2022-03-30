@@ -1,8 +1,6 @@
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
 
-import Address from "../Address";
-
 export default ({ safes, selected, selectSafe }) => {
   if (!safes || safes.length == 0) return;
   const options = [];

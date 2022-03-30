@@ -79,7 +79,6 @@ class Safe extends React.Component {
 
   async getSafeDetails(safeAddress) {
     const safeDetails = await network.getSafeDetails(safeAddress);
-    console.log(safeDetails);
     this.setState({ safeDetails });
   }
 

@@ -1,13 +1,13 @@
 import HoverTooltip from "./HoverTooltip";
 
-export default ({ first, second, address }) => {
-  const _address = address.substr(0, first || 5) + "…" + address.substr(second || -4);
+export default ({ first, second, children }) => {
+  const _address = children.substr(0, first || 5) + "…" + children.substr(second || -4);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(address);
+    navigator.clipboard.writeText(children);
   };
   const openLink = () => {
-    window.open(`https://etherscan.io/address/${address}`, "_blank").focus();
+    window.open(`https://etherscan.io/address/${children}`, "_blank").focus();
   };
   return (
     <HoverTooltip
