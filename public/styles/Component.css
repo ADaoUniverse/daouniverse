@@ -1,4 +1,6 @@
 @import "Navbar.css";
+@import "Loader.css";
+@import "Login.css";
 
 button {
   padding-left: 24px;

@@ -34,9 +34,5 @@ export default () => {
     toggleTheme();
   }, []);
 
-  return (
-    <div>
-      <button onClick={toggleTheme}>{theme ? "Dark" : "Light"}</button>
-    </div>
-  );
+  return <></>;
 };

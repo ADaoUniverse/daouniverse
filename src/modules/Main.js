@@ -1,18 +1,25 @@
 import React from "react";
 
-import Navbar from "../components/Navbar";
-import Login from "./Login";
+import Theme from "../components/Theme";
+import Screens from "../components/Screens";
+import LandingPage from "./LandingPage";
+
+import { appName } from "../Constants";
+import DataBridge from "../helpers/DataBridge";
 
 class Main extends React.Component {
   constructor(props) {
     super(props);
+
+    window[appName] = {};
+    window[appName].databridge = new DataBridge();
   }
 
   render() {
     return (
       <div>
-        <Navbar />
-        <Login />
+        <Theme />
+        <Screens current={<LandingPage />} default={<LandingPage />} />
       </div>
     );
   }
