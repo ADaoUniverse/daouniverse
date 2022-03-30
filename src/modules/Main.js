@@ -1,11 +1,12 @@
 import React from "react";
 
+import { appName } from "../Constants";
+import DataBridge from "../helpers/DataBridge";
+
 import Theme from "../components/Theme";
 import Screens from "../components/Screens";
 import LandingPage from "./LandingPage";
 
-import { appName } from "../Constants";
-import DataBridge from "../helpers/DataBridge";
 
 class Main extends React.Component {
   constructor(props) {

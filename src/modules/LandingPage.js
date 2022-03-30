@@ -4,7 +4,7 @@ import { appName } from "../Constants";
 import DataBridge from "../helpers/DataBridge";
 
 import Logo from "../res/logo.svg";
-import Login from "./Login";
+import DashboardContainer from "./DashboardContainer";
 
 class LandingPage extends React.Component {
   constructor(props) {
@@ -12,7 +12,7 @@ class LandingPage extends React.Component {
   }
 
   login() {
-    window[appName].databridge.pub(DataBridge.TOPIC.CHANGE_SCREEN, <Login />);
+    window[appName].databridge.pub(DataBridge.TOPIC.CHANGE_SCREEN, <DashboardContainer userClickedLogin={true} />);
   }
 
   render() {

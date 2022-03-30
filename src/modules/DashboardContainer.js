@@ -1,12 +1,13 @@
 import React from "react";
 import { ethers } from "ethers";
 
-import Loader from "../components/Loader";
-
-import { appName, gnosis } from "../Constants";
+import { appName } from "../Constants";
 import DataBridge from "../helpers/DataBridge";
 
-class Login extends React.Component {
+import Dashboard from "./Dashboard";
+import LoginScreen from "../components/LoginScreen";
+
+class DashboardInit extends React.Component {
   constructor(props) {
     super(props);
 
@@ -19,7 +20,6 @@ class Login extends React.Component {
     this.getWalletConnectionStatus = this._syncWalletAccount.bind(this);
     this.getWalletAccount = this._getWalletAccount.bind(this);
     this.connectWallet = this.connectWallet.bind(this);
-    this.renderLogin = this.renderLogin.bind(this);
   }
 
   componentDidMount() {
@@ -31,7 +31,10 @@ class Login extends React.Component {
   }
 
   async init() {
-    this.syncWalletData();
+    await this.syncWalletData();
+    if (this.props.userClickedLogin) {
+      await this.connectWallet();
+    }
   }
 
   async syncWalletData() {
@@ -95,18 +98,10 @@ class Login extends React.Component {
     this.forceUpdate();
   }
 
-  renderLogin() {
-    return (
-      <div className="login">
-        <Loader />
-        <div className="caption">Connecting...</div>
-      </div>
-    );
-  }
-
   render() {
-    return window[appName].account && window[appName].network ? <div>Logged In!</div> : this.renderLogin();
+    const shouldRenderDashboard = (window[appName].account && window[appName].network);
+    return shouldRenderDashboard ? <Dashboard /> : <LoginScreen />;
   }
 }
 
-export default Login;
+export default DashboardInit;
