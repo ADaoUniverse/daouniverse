@@ -129,7 +129,8 @@ class DashboardContainer extends React.Component {
       window[appName].account &&
       window[appName].network &&
       supportedNetworks.supported.indexOf(window[appName].network.chainId) > -1;
-    return shouldRenderDashboard ? <Dashboard /> : <LoginScreen />;
+    // adding key to dashboard to remount all components on account change
+    return shouldRenderDashboard ? <Dashboard key={window[appName].account} /> : <LoginScreen />;
   }
 }
 
