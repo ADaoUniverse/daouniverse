@@ -83,7 +83,7 @@ class DashboardContainer extends React.Component {
   }
 
   async _requestNetworkChange(chainIdVal) {
-    const chainId = ethers.BigNumber.from(chainIdVal).toHexString();
+    const chainId = ethers.utils.hexValue(ethers.BigNumber.from(chainIdVal).toHexString());
     try {
       await window.ethereum.request({
         method: "wallet_switchEthereumChain",
