@@ -17,15 +17,21 @@ const headers = {
   },
 };
 
-const supportedNetworks = [
-  { label: "Ethereum", value: 1 },
-  { label: "Rinkeby", value: 4 },
-  { label: "Polygon", value: 137 },
-];
+const supportedNetworks = {
+  supported: [1, 4, 137],
+  options: [
+    { label: "Ethereum", value: 1 },
+    { label: "Rinkeby", value: 4 },
+    { label: "Polygon", value: 137 },
+  ],
+};
 
-const etherscan = {
+const chainexplorer = {
   1: (a) => `https://etherscan.io/address/${a}`,
+  3: (a) => `https://ropsten.etherscan.io/address/${a}`,
   4: (a) => `https://rinkeby.etherscan.io/address/${a}`,
+  5: (a) => `https://goerli.etherscan.io/address/${a}`,
+  42: (a) => `https://kovan.etherscan.io/address/${a}`,
 };
 
 const token = {
@@ -61,7 +67,7 @@ module.exports = {
   appName,
   id,
   headers,
-  etherscan,
+  chainexplorer,
   supportedNetworks,
   token,
   gnosis,

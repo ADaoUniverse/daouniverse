@@ -1,10 +1,14 @@
 import Loader from "./Loader";
+import NetworkNotSupported from "./dashboard/NetworkNotSupported";
 
 export default () => {
   return (
     <div className="login">
-      <Loader />
-      <div className="caption">Connecting...</div>
+      <NetworkNotSupported className="floating" />
+      <div className="connecting">
+        <Loader />
+        <div className="caption">Connecting...</div>
+      </div>
     </div>
   );
 };

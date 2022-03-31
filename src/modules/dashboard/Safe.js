@@ -44,7 +44,9 @@ class Safe extends React.Component {
 
   async init() {
     await this.getSafesForOwner();
-    await this.getSafeDetails(this.state.currentSafe);
+    if (this.state.currentSafe) {
+      await this.getSafeDetails(this.state.currentSafe);
+    }
   }
 
   resetState() {

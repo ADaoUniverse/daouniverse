@@ -1,4 +1,4 @@
-import { appName, etherscan } from "../Constants";
+import { appName, chainexplorer } from "../Constants";
 import HoverTooltip from "./HoverTooltip";
 
 export default ({ first, second, a }) => {
@@ -8,7 +8,7 @@ export default ({ first, second, a }) => {
     navigator.clipboard.writeText(a);
   };
   const openLink = () => {
-    window.open(etherscan[window[appName].network.chainId](a), "_blank").focus();
+    window.open(chainexplorer[window[appName].network.chainId](a), "_blank").focus();
   };
   return (
     <HoverTooltip

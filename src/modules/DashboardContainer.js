@@ -1,13 +1,13 @@
 import React from "react";
 import { ethers } from "ethers";
 
-import { appName } from "../Constants";
+import { appName, supportedNetworks } from "../Constants";
 import DataBridge from "../helpers/DataBridge";
 
 import Dashboard from "./dashboard/Dashboard";
 import LoginScreen from "../components/LoginScreen";
 
-class DashboardInit extends React.Component {
+class DashboardContainer extends React.Component {
   constructor(props) {
     super(props);
 
@@ -126,9 +126,12 @@ class DashboardInit extends React.Component {
   }
 
   render() {
-    const shouldRenderDashboard = window[appName].account && window[appName].network;
+    const shouldRenderDashboard =
+      window[appName].account &&
+      window[appName].network &&
+      supportedNetworks.supported.indexOf(window[appName].network.chainId) > -1;
     return shouldRenderDashboard ? <Dashboard /> : <LoginScreen />;
   }
 }
 
-export default DashboardInit;
+export default DashboardContainer;

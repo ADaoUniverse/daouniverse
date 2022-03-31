@@ -1,6 +1,5 @@
 import React from "react";
 import { appName } from "../../Constants";
-import NetworkNotSupported from "../../components/dashboard/NetworkNotSupported";
 import Safe from "./Safe";
 import Address from "../../components/Address";
 import Toggle from "../../components/Toggle";
@@ -21,7 +20,6 @@ class Dashboard extends React.Component {
   render() {
     return (
       <div>
-        <NetworkNotSupported />
         <h3>
           <Address a={window[appName].account} />({window[appName].network.name})
           <Toggle onChange={this.changeTheme} />
