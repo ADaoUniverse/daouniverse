@@ -1,8 +1,4 @@
-import { appName, gnosis, headers } from "../../Constants";
-
-const getChainId = () => {
-  return window[appName].network.chainId;
-};
+import { gnosis, headers } from "../../Constants";
 
 export default {
   getSafesForOwner: async (ownerAddress) => {

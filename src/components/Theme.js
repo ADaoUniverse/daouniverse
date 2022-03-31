@@ -25,10 +25,8 @@ export default () => {
     // todo: save theme to localstorage for persistence
     if (isDark) {
       darkTheme();
-      console.log("dark");
     } else {
       lightTheme();
-      console.log("light");
     }
   };
   useEffect(() => {

@@ -1,5 +1,16 @@
 const appName = "daouniverse";
 
+const id = {
+  input: {
+    token: {
+      NAME: "input_token_name",
+      SYMBOL: "input_token_symbol",
+      INITIAL_AMOUNT: "input_token_intial_amount",
+      DECIMALS: "input_token_decimals",
+    },
+  },
+};
+
 const headers = {
   acceptJson: {
     accept: "application/json",
@@ -7,10 +18,21 @@ const headers = {
 };
 
 const supportedNetworks = [
-  { label: "homestead", value: 1 },
-  { label: "rinkeby", value: 4 },
-  { label: "polygon", value: 137 },
+  { label: "Ethereum", value: 1 },
+  { label: "Rinkeby", value: 4 },
+  { label: "Polygon", value: 137 },
 ];
+
+const etherscan = {
+  1: (a) => `https://etherscan.io/address/${a}`,
+  4: (a) => `https://rinkeby.etherscan.io/address/${a}`,
+};
+
+const token = {
+  registrar: {
+    4: "0x589554C98c33d74f02B00826AB76e14801046ba3",
+  },
+};
 
 const gnosis = {
   baseapi: {
@@ -37,7 +59,10 @@ const _baseApi = () => gnosis.baseapi[window[appName].network.chainId];
 
 module.exports = {
   appName,
+  id,
   headers,
+  etherscan,
   supportedNetworks,
+  token,
   gnosis,
 };

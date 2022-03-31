@@ -6,7 +6,7 @@ export default ({ safeDetails }) => {
   for (let i = 0; i < safeDetails.owners.length; i++) {
     owners.push(
       <div>
-        <Address>{safeDetails.owners[i]}</Address>
+        <Address a={safeDetails.owners[i]} />
       </div>
     );
   }

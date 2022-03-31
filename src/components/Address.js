@@ -1,13 +1,14 @@
+import { appName, etherscan } from "../Constants";
 import HoverTooltip from "./HoverTooltip";
 
-export default ({ first, second, children }) => {
-  const _address = children.substr(0, first || 5) + "…" + children.substr(second || -4);
+export default ({ first, second, a }) => {
+  const _address = a.substr(0, first || 5) + "…" + a.substr(second || -4);
 
   const copyToClipboard = () => {
-    navigator.clipboard.writeText(children);
+    navigator.clipboard.writeText(a);
   };
   const openLink = () => {
-    window.open(`https://etherscan.io/address/${children}`, "_blank").focus();
+    window.open(etherscan[window[appName].network.chainId](a), "_blank").focus();
   };
   return (
     <HoverTooltip
