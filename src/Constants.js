@@ -32,6 +32,7 @@ const chainexplorer = {
   4: (a) => `https://rinkeby.etherscan.io/address/${a}`,
   5: (a) => `https://goerli.etherscan.io/address/${a}`,
   42: (a) => `https://kovan.etherscan.io/address/${a}`,
+  137: (a) => `https://polygonscan.com/address/${a}`,
 };
 
 const token = {
