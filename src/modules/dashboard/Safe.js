@@ -30,7 +30,6 @@ class Safe extends React.Component {
 
     this.init = this.init.bind(this);
     this.resetState = this.resetState.bind(this);
-    this.handleAccountChange = this.handleAccountChange.bind(this);
     this.selectSafe = this.selectSafe.bind(this);
     this.createSafe = this.createSafe.bind(this);
     this.getSafesForOwner = this.getSafesForOwner.bind(this);
@@ -38,7 +37,6 @@ class Safe extends React.Component {
   }
 
   componentDidMount() {
-    window[appName].databridge.sub(DataBridge.TOPIC.ACCOUNT_CHANGE, this.handleAccountChange);
     this.init();
   }
 
@@ -51,12 +49,6 @@ class Safe extends React.Component {
 
   resetState() {
     this.setState({ ...this.initialState });
-  }
-
-  async handleAccountChange() {
-    this.resetState();
-    this.gnosis = new Gnosis();
-    this.getSafesForOwner();
   }
 
   selectSafe(safeOption) {
