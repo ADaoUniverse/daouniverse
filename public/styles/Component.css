@@ -5,6 +5,28 @@
 @import "HoverTooltip.css";
 @import "Toggle.css";
 
+input,
+textarea {
+  background-color: #00000000;
+  color: var(--text-color);
+  border: none;
+  border-bottom: 2px solid var(--text-color);
+  padding-left: 14px;
+  padding-right: 14px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  margin-left: 4px;
+  margin-right: 4px;
+  margin-top: 2px;
+  margin-bottom: 2px;
+}
+
+input:focus,
+textarea:focus {
+  border-bottom: 2px solid var(--light-color);
+  outline: none;
+}
+
 button {
   padding-left: 24px;
   padding-right: 24px;
