@@ -4,12 +4,18 @@ import { ethers } from "ethers";
 import { appName, token } from "../../../Constants";
 import tokenRegistrarAbi from "../../../abi/token/TokenRegistrar.json";
 
+import Address from "../../Address";
+
 export default () => {
   const [tokens, setTokens] = useState([]);
   const [total, setTotal] = useState(0);
 
   const _registrar = token.registrar[window[appName].network.chainId];
-  const registrarContract = new ethers.Contract(_registrar, tokenRegistrarAbi, window[appName].wallet);
+  /**
+   * Need to use signer because provider doesn't include account address details.
+   * So, msg.sender is not resolved and returns empty array
+   */
+  const registrarContract = new ethers.Contract(_registrar, tokenRegistrarAbi, window[appName].wallet.getSigner());
 
   const getTokens = async () => {
     const tokens = await registrarContract.getTokens();
@@ -17,9 +23,6 @@ export default () => {
 
     setTokens(tokens);
     setTotal(total);
-
-    console.log(_registrar, window[appName].account, window[appName].network.chainId, tokens);
-    console.log(_registrar, window[appName].account, window[appName].network.chainId, total);
   };
 
   useEffect(() => {
@@ -28,7 +31,12 @@ export default () => {
 
   return (
     <div>
-      Tokens: {JSON.stringify(tokens)}
+      Tokens:{" "}
+      {tokens.map((token) => (
+        <div>
+          <Address key={token} a={token} />
+        </div>
+      ))}
       <br />
       Length: {total}
       <br />
