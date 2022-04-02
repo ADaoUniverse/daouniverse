@@ -4,7 +4,7 @@ import Gnosis from "../../helpers/gnosis/Gnosis";
 
 import network from "../../helpers/gnosis/Network";
 import DataBridge from "../../helpers/DataBridge";
-import { appName } from "../../Constants";
+import { appName, id, token } from "../../Constants";
 import SelectSafes from "../../components/dashboard/SelectSafes";
 import CreateSafe from "../../components/dashboard/CreateSafe";
 import SafeDetails from "../../components/dashboard/SafeDetails";
@@ -34,6 +34,8 @@ class Safe extends React.Component {
     this.createSafe = this.createSafe.bind(this);
     this.getSafesForOwner = this.getSafesForOwner.bind(this);
     this.getSafeDetails = this.getSafeDetails.bind(this);
+
+    this.createToken = this.createToken.bind(this);
   }
 
   componentDidMount() {
@@ -66,6 +68,17 @@ class Safe extends React.Component {
     const res = await this.gnosis.createSafe(owners, threshold);
   }
 
+  async createToken() {
+    const _name = document.getElementById(id.input.token.NAME).value;
+    const _symbol = document.getElementById(id.input.token.SYMBOL).value;
+    const _initialAmount = document.getElementById(id.input.token.INITIAL_AMOUNT).value;
+    const _decimals = document.getElementById(id.input.token.DECIMALS).value;
+
+    const _registrar = token.registrar[window[appName].network.chainId];
+
+    await this.gnosis.deployContract(this.state.currentSafe, [_registrar, _name, _symbol, _initialAmount, _decimals]);
+  }
+
   async getSafesForOwner() {
     const safes = await network.getSafesForOwner(window[appName].account);
     this.setState({ safes, currentSafe: safes[0] });
@@ -81,7 +94,8 @@ class Safe extends React.Component {
       <div>
         SAFE: <SelectSafes safes={this.state.safes} selected={this.state.currentSafe} selectSafe={this.selectSafe} />
         <SafeDetails safeDetails={this.state.safeDetails} />
-        {/* <CreateSafe createSafe={this.createSafe} /> */}
+        <CreateSafe createSafe={this.createSafe} />
+        <button onClick={this.createToken}>Create Token From Gnosis</button>
       </div>
     );
   }

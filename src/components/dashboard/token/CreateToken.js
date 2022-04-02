@@ -29,7 +29,7 @@ export default () => {
       <br />
       Decimals <input id={id.input.token.DECIMALS} />
       <br />
-      <button onClick={createToken}>Create Token</button>
+      {/* <button onClick={createToken}>Create Token</button> */}
     </div>
   );
 };
