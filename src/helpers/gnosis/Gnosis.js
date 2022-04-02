@@ -7,6 +7,7 @@ import safeAbi from "../../abi/gnosis/safe.json";
 // interaction with contract
 import proxyFactoryAbi from "../../abi/gnosis/proxy_factory.json";
 import fallbackAbi from "../../abi/gnosis/fallback_handler.json";
+import createCallAbi from "../../abi/gnosis/create_call.json";
 
 import Txn from "../Txn";
 
@@ -18,6 +19,12 @@ class Gnosis {
   init() {
     this.safeInterface = new ethers.utils.Interface(safeAbi.abi);
     this.contractFactory = new ethers.Contract(this._getFactoryAddress(), proxyFactoryAbi.abi, window[appName].wallet);
+
+    this.createCallContract = new ethers.Contract(
+      this._getCreateCallContractAddress(),
+      createCallAbi.abi,
+      window[appName].wallet.getSigner()
+    );
   }
 
   async createSafe(owners, threshold) {
@@ -35,6 +42,10 @@ class Gnosis {
     return res;
   }
 
+  async deployContract(data) {
+    const res = await Txn.sendTxn(this.createCallContract, "performCreate", 0, data, { gasLimit: 1000000 });
+  }
+
   _getSafeSetupData(owners, threshold) {
     return this.safeInterface.encodeFunctionData("setup", [
       owners,
@@ -49,19 +60,23 @@ class Gnosis {
   }
 
   _getFactoryAddress() {
-    const address = proxyFactoryAbi.networkAddresses[window[appName].network.chainId];
-    if (!address) throw "Network not supported";
-    return address;
+    return this._getAddress(proxyFactoryAbi);
   }
 
   _getSafeAddress() {
-    const address = safeAbi.networkAddresses[window[appName].network.chainId];
-    if (!address) throw "Network not supported";
-    return address;
+    return this._getAddress(safeAbi);
   }
 
   _getFallbackAddress() {
-    const address = fallbackAbi.networkAddresses[window[appName].network.chainId];
+    return this._getAddress(fallbackAbi);
+  }
+
+  _getCreateCallContractAddress() {
+    return this._getAddress(createCallAbi);
+  }
+
+  _getAddress(abi) {
+    const address = abi.networkAddresses[window[appName].network.chainId];
     if (!address) throw "Network not supported";
     return address;
   }

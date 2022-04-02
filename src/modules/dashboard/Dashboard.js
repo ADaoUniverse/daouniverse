@@ -1,6 +1,7 @@
 import React from "react";
 import { appName } from "../../Constants";
 import Safe from "./Safe";
+import SafeWithSdk from "./SafeWithSdk";
 import Address from "../../components/Address";
 import Toggle from "../../components/Toggle";
 import DataBridge from "../../helpers/DataBridge";
@@ -26,6 +27,7 @@ class Dashboard extends React.Component {
         </h3>
         <Safe />
         <DaoERC20 />
+        <SafeWithSdk/>
       </div>
     );
   }

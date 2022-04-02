@@ -81,7 +81,7 @@ class Safe extends React.Component {
       <div>
         SAFE: <SelectSafes safes={this.state.safes} selected={this.state.currentSafe} selectSafe={this.selectSafe} />
         <SafeDetails safeDetails={this.state.safeDetails} />
-        <CreateSafe createSafe={this.createSafe} />
+        {/* <CreateSafe createSafe={this.createSafe} /> */}
       </div>
     );
   }
