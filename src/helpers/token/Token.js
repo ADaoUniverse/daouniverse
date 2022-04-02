@@ -1,20 +1,11 @@
-import { ethers } from "ethers";
-import DaoERC20Abi from "../../abi/token/DaoERC20.json";
+const { ethers } = require("ethers");
+const DaoERC20Abi = require("../../abi/token/DaoERC20.json");
 
-class Token {
-  constructor() {
-    this.erc20tokenInterface = new ethers.utils.Interface(DaoERC20Abi);
-  }
+const erc20tokenInterface = new ethers.utils.Interface(DaoERC20Abi);
+const getErc20TokenContractEncoded = (_registrar, _name, _symbol, _initialAmount, _decimals) => {
+  return erc20tokenInterface.encodeFunctionData("constructor", [_registrar, _initialAmount, _name, _decimals, _symbol]);
+};
 
-  getErc20TokenContractEncoded(_registrar, _name, _symbol, _initialAmount, _decimals) {
-    return this.erc20tokenInterface.encodeFunctionData("constructor", [
-      _registrar,
-      _initialAmount,
-      _name,
-      _decimals,
-      _symbol,
-    ]);
-  }
-}
-
-export default Token;
+module.exports = {
+  getErc20TokenContractEncoded,
+};

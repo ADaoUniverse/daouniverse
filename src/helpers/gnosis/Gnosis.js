@@ -11,12 +11,11 @@ import createCallAbi from "../../abi/gnosis/create_call.json";
 
 import Txn from "../Txn";
 
-import Token from "../token/Token";
+import { getErc20TokenContractEncoded } from "../token/Token";
 
 class Gnosis {
   constructor() {
     this.init();
-    this.tokenHelper = new Token();
   }
 
   init() {
@@ -55,7 +54,7 @@ class Gnosis {
         10000000,
         "0x0000000000000000000000000000000000000000",
         "0x0000000000000000000000000000000000000000",
-        "0x000000000000000000000000E52772e599b3fa747Af9595266b527A31611cebd000000000000000000000000000000000000000000000000000000000000000001"
+        "0x000000000000000000000000E52772e599b3fa747Af9595266b527A31611cebd000000000000000000000000000000000000000000000000000000000000000001",
         // await signer.signMessage(ethers.utils.hashMessage("I approve")),
       ]),
       gasLimit: 10000000,
@@ -106,7 +105,7 @@ class Gnosis {
   _getPerformCreateData(contractParams) {
     return this.createCallInterface.encodeFunctionData("performCreate", [
       0,
-      this.tokenHelper.getErc20TokenContractEncoded(...contractParams),
+      getErc20TokenContractEncoded(...contractParams),
     ]);
   }
 
