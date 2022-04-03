@@ -37,7 +37,7 @@ const chainexplorer = {
 
 const token = {
   registrar: {
-    4: "0x589554C98c33d74f02B00826AB76e14801046ba3",
+    4: "0xE653C34113EE17d57Ef8d2909625F33bD53d9BdA",
   },
 };
 

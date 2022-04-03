@@ -21,8 +21,8 @@ class DaoERC20 extends React.Component {
   render() {
     return (
       <div>
-        <UserTokens />
-        <CreateToken />
+        <UserTokens owner={this.props.currentSafe} />
+        <CreateToken createToken={this.props.createToken} />
       </div>
     );
   }

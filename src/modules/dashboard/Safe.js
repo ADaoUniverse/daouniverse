@@ -8,6 +8,7 @@ import { appName, id, token } from "../../Constants";
 import SelectSafes from "../../components/dashboard/SelectSafes";
 import CreateSafe from "../../components/dashboard/CreateSafe";
 import SafeDetails from "../../components/dashboard/SafeDetails";
+import DaoERC20 from "./DaoERC20";
 
 const styles = {
   textarea: {
@@ -75,8 +76,16 @@ class Safe extends React.Component {
     const _decimals = document.getElementById(id.input.token.DECIMALS).value;
 
     const _registrar = token.registrar[window[appName].network.chainId];
+    const _owner = this.state.currentSafe;
 
-    await this.gnosis.deployContract(this.state.currentSafe, [_registrar, _name, _symbol, _initialAmount, _decimals]);
+    await this.gnosis.deployContract(this.state.currentSafe, [
+      _owner,
+      _registrar,
+      _name,
+      _symbol,
+      _initialAmount,
+      _decimals,
+    ]);
   }
 
   async getSafesForOwner() {
@@ -95,7 +104,7 @@ class Safe extends React.Component {
         SAFE: <SelectSafes safes={this.state.safes} selected={this.state.currentSafe} selectSafe={this.selectSafe} />
         <SafeDetails safeDetails={this.state.safeDetails} />
         <CreateSafe createSafe={this.createSafe} />
-        <button onClick={this.createToken}>Create Token From Gnosis</button>
+        <DaoERC20 currentSafe={this.state.currentSafe} createToken={this.createToken} />
       </div>
     );
   }

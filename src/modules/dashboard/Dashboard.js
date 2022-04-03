@@ -4,7 +4,6 @@ import Safe from "./Safe";
 import Address from "../../components/Address";
 import Toggle from "../../components/Toggle";
 import DataBridge from "../../helpers/DataBridge";
-import DaoERC20 from "./DaoERC20";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -25,7 +24,6 @@ class Dashboard extends React.Component {
           <Toggle onChange={this.changeTheme} />
         </h3>
         <Safe />
-        <DaoERC20 />
       </div>
     );
   }
