@@ -59,32 +59,6 @@ class Gnosis {
       ]),
       gasLimit: 10000000,
     });
-    // const safeProxy = new ethers.Contract(safeAddress, safeProxyAbi, window[appName].wallet.getSigner());
-    // const unsigned = await safeProxy.execTransaction(
-    //   ,
-    //   {
-    //     gasLimit: 500000,
-    //   }
-    // );
-    // const res = await window[appName].wallet.getSigner().sendTransaction(unsigned);
-    // const safeContract = new ethers.Contract(safeAddress, safeAbi.abi, window[appName].wallet.getSigner());
-    // const safeContract = new ethers.Contract(safeAddress, safeAbi.abi, window[appName].wallet.getSigner());
-    // const res = await Txn.sendTxn(
-    //   safeProxy,
-    //   "execTransaction",
-    //   this._getCreateCallContractAddress(),
-    //   0,
-    //   this._getPerformCreateData(contractParams),
-    //   0,
-    //   0,
-    //   0,
-    //   0,
-    //   0,
-    //   window[appName].account,
-    //   {
-    //     gasLimit: 500000,
-    //   }
-    // );
     console.log(res);
     return res;
   }
