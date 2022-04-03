@@ -103,10 +103,14 @@ class Gnosis {
   }
 
   _getPerformCreateData(contractParams) {
-    return this.createCallInterface.encodeFunctionData("performCreate", [
+    const res = this.createCallInterface.encodeFunctionData("performCreate", [
       0,
       getErc20TokenContractEncoded(...contractParams),
     ]);
+
+    console.log("perfromCreateData");
+    console.log(res);
+    return res;
   }
 
   _getFactoryAddress() {

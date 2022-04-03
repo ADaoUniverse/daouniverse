@@ -27,9 +27,8 @@
         "type": "string"
       }
     ],
-    "name": "constructor",
     "stateMutability": "nonpayable",
-    "type": "function"
+    "type": "constructor"
   },
   {
     "anonymous": false,
