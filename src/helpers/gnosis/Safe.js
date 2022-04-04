@@ -49,7 +49,6 @@ class Safe {
   }
 
   async execTransaction(_to, _value, _data, _signatures) {
-    console.log(_to, _value, _data, _signatures);
     return await this.safeContract.execTransaction(
       _to,
       _value,
@@ -61,17 +60,55 @@ class Safe {
       ZERO_ADDRESS,
       ZERO_ADDRESS,
       _signatures,
-      { gasLimit: 10000000 }
+      { gasLimit: 500000 }
     );
   }
 
   async deployContract(_contractData, _signatures) {
-    const res = await this.execTransaction(
+    // test code-------------------------------
+    const params = [
       this._getCreateCallContractAddress(),
       0,
       this.createCallInterface.encodeFunctionData("performCreate", [0, _contractData]),
-      _signatures
-    );
+    ];
+    // const txnHash = await this.getTransactionHash(...params);
+
+    const domain = {};
+    const types = {
+      Message: [
+        { name: "to", type: "address" },
+        { name: "value", type: "uint256" },
+        { name: "data", type: "bytes" },
+        { name: "operation", type: "uint256" },
+        { name: "safeTxGas", type: "uint256" },
+        { name: "baseGas", type: "uint256" },
+        { name: "gasPrice", type: "uint256" },
+        { name: "gasToken", type: "address" },
+        { name: "refundReceiver", type: "address" },
+      ],
+    };
+    const value = {
+      to: params[0],
+      value: params[1],
+      data: params[2],
+      operation: 0,
+      safeTxGas: 0,
+      baseGas: 0,
+      gasPrice: 0,
+      gasToken: ZERO_ADDRESS,
+      refundReceiver: ZERO_ADDRESS,
+    };
+    // todo: _signTypedData will be renamed
+    const sign = await window[appName].wallet.getSigner()._signTypedData(domain, types, value);
+    const res = await this.execTransaction(...params, sign);
+    // test code-------------------------
+
+    // const res = await this.execTransaction(
+    //   this._getCreateCallContractAddress(),
+    //   0,
+    //   this.createCallInterface.encodeFunctionData("performCreate", [0, _contractData]),
+    //   _signatures
+    // );
     console.log(res);
     return res;
   }
