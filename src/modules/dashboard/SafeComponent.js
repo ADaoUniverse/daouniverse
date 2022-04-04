@@ -118,7 +118,20 @@ class SafeComponent extends React.Component {
             )
           }
         >
-          Get Nonce
+          Sign Message
+        </button>
+        <button
+          onClick={async () => {
+            const txnHash = await this.state.currentSafeObj.getTransactionHash(
+              "0xE52772e599b3fa747Af9595266b527A31611cebd",
+              100000,
+              0
+            );
+            const signed = await window[appName].wallet.getSigner().signMessage(txnHash);
+            console.log("txn Hash", txnHash, signed);
+          }}
+        >
+          Sign Txn Message
         </button>
       </div>
     );

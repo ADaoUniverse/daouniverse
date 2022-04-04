@@ -5,6 +5,7 @@ import { appName, token } from "../../../Constants";
 import tokenRegistrarAbi from "../../../abi/token/TokenRegistrar.json";
 
 import Address from "../../Address";
+import TokenDetails from "../../TokenDetails";
 
 export default ({ owner }) => {
   const [tokens, setTokens] = useState([]);
@@ -35,7 +36,7 @@ export default ({ owner }) => {
       Tokens:{" "}
       {tokens.map((token) => (
         <div>
-          <Address key={token} a={token} />
+          <TokenDetails key={token} address={token} owner={owner} />
         </div>
       ))}
       <br />

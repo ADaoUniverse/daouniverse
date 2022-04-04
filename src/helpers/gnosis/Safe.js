@@ -12,6 +12,10 @@ class Safe {
     this.signContract = new ethers.Contract(_safeAddress, signAbi.abi, _provider.getSigner());
 
     this.createCallInterface = new ethers.utils.Interface(createCallAbi.abi);
+
+    // todo: remove this
+    window.safeContract = this.safeContract;
+    window.signContract = this.signContract;
   }
 
   async getNonce() {
@@ -34,8 +38,12 @@ class Safe {
   }
 
   async signMessage(_txnHash) {
-    console.log(_txnHash);
-    const res = await this.signContract.signMessage(_txnHash, { gasLimit: 1000000 });
+    const res = await this.execTransaction(
+      this.safeAddress,
+      0,
+      this.createCallInterface.encodeFunctionData("signMessage", [_txnHash]),
+      this._getSelfSign()
+    );
     console.log(res);
     return res;
   }
@@ -61,15 +69,19 @@ class Safe {
     const res = await this.execTransaction(
       this._getCreateCallContractAddress(),
       0,
-      this._getPerformCreateData(_contractData),
+      this.createCallInterface.encodeFunctionData("performCreate", [0, _contractData]),
       _signatures
     );
     console.log(res);
     return res;
   }
 
-  _getPerformCreateData(_contractData) {
-    return this.createCallInterface.encodeFunctionData("performCreate", [0, _contractData]);
+  _getSelfSign() {
+    return `0x000000000000000000000000${window[appName].account}000000000000000000000000000000000000000000000000000000000000000001`;
+  }
+
+  _getSignContractAddress() {
+    return this._getAddress(signAbi);
   }
 
   _getCreateCallContractAddress() {
