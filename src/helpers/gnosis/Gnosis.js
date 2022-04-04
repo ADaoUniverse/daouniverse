@@ -7,9 +7,6 @@ import safeAbi from "../../abi/gnosis/safe.json";
 // interaction with contract
 import proxyFactoryAbi from "../../abi/gnosis/proxy_factory.json";
 import fallbackAbi from "../../abi/gnosis/fallback_handler.json";
-import createCallAbi from "../../abi/gnosis/create_call.json";
-
-import { getErc20TokenContractEncoded } from "../token/Token";
 
 class Gnosis {
   constructor() {

@@ -40,6 +40,7 @@ class SafeComponent extends React.Component {
     this.getSafeDetails = this.getSafeDetails.bind(this);
 
     this.createToken = this.createToken.bind(this);
+    this._setCurrentSafe = this._setCurrentSafe.bind(this);
   }
 
   componentDidMount() {
@@ -58,10 +59,7 @@ class SafeComponent extends React.Component {
   }
 
   selectSafe(safeOption) {
-    this.setState({
-      currentSafe: safeOption.value,
-      currentSafeObj: new Safe(safeOption.value, window[appName].wallet),
-    });
+    this._setCurrentSafe(safeOption.value);
     this.getSafeDetails(safeOption.value);
   }
 
@@ -92,12 +90,17 @@ class SafeComponent extends React.Component {
 
   async getSafesForOwner() {
     const safes = await network.getSafesForOwner(window[appName].account);
-    this.setState({ safes, currentSafe: safes[0], currentSafeObj: new Safe(safes[0], window[appName].wallet) });
+    this.setState({ safes });
+    this._setCurrentSafe(safes[0]);
   }
 
   async getSafeDetails(safeAddress) {
     const safeDetails = await network.getSafeDetails(safeAddress);
     this.setState({ safeDetails });
+  }
+
+  _setCurrentSafe(safe) {
+    this.setState({ currentSafe: safe, currentSafeObj: new Safe(safe, window[appName].wallet) });
   }
 
   render() {
