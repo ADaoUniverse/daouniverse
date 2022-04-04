@@ -7,12 +7,16 @@ import Theme from "../components/Theme";
 import Screens from "../components/Screens";
 import LandingPage from "./LandingPage";
 
+// todo: remove this ether plug
+import { ethers } from "ethers";
+
 class Main extends React.Component {
   constructor(props) {
     super(props);
 
     window[appName] = {};
     window[appName].databridge = new DataBridge();
+    window[appName].ethers = ethers;
   }
 
   render() {

@@ -9,8 +9,6 @@ import proxyFactoryAbi from "../../abi/gnosis/proxy_factory.json";
 import fallbackAbi from "../../abi/gnosis/fallback_handler.json";
 import createCallAbi from "../../abi/gnosis/create_call.json";
 
-import Txn from "../Txn";
-
 import { getErc20TokenContractEncoded } from "../token/Token";
 
 class Gnosis {
@@ -20,45 +18,22 @@ class Gnosis {
 
   init() {
     this.safeInterface = new ethers.utils.Interface(safeAbi.abi);
-    this.contractFactory = new ethers.Contract(this._getFactoryAddress(), proxyFactoryAbi.abi, window[appName].wallet);
-    this.createCallInterface = new ethers.utils.Interface(createCallAbi.abi);
+    this.contractFactory = new ethers.Contract(
+      this._getFactoryAddress(),
+      proxyFactoryAbi.abi,
+      window[appName].wallet.getSigner()
+    );
   }
 
   async createSafe(owners, threshold) {
-    const res = await Txn.sendTxn(
-      this.contractFactory,
-      "createProxyWithNonce",
+    const res = await this.contractFactory.createProxyWithNonce(
       this._getSafeAddress(),
       this._getSafeSetupData(owners, threshold),
-      new Date().getTime(),
+      Date.now(),
       {
         gasLimit: 500000,
       }
     );
-    console.log(res);
-    return res;
-  }
-
-  async deployContract(safeAddress, contractParams) {
-    // cannot use ethers.Contract because the safeAddress is actually safeProxy address with fallback doing the delegation
-    const signer = await window[appName].wallet.getSigner();
-    const res = await signer.sendTransaction({
-      to: safeAddress,
-      data: this.safeInterface.encodeFunctionData("execTransaction", [
-        this._getCreateCallContractAddress(),
-        0,
-        this._getPerformCreateData(contractParams),
-        0,
-        0,
-        0,
-        0,
-        "0x0000000000000000000000000000000000000000",
-        "0x0000000000000000000000000000000000000000",
-        "0x000000000000000000000000E52772e599b3fa747Af9595266b527A31611cebd000000000000000000000000000000000000000000000000000000000000000001",
-        // await signer.signMessage(ethers.utils.hashMessage("I approve")),
-      ]),
-      gasLimit: 10000000,
-    });
     console.log(res);
     return res;
   }
@@ -76,17 +51,6 @@ class Gnosis {
     ]);
   }
 
-  _getPerformCreateData(contractParams) {
-    const res = this.createCallInterface.encodeFunctionData("performCreate", [
-      0,
-      getErc20TokenContractEncoded(...contractParams),
-    ]);
-
-    console.log("perfromCreateData");
-    console.log(res);
-    return res;
-  }
-
   _getFactoryAddress() {
     return this._getAddress(proxyFactoryAbi);
   }
@@ -99,10 +63,6 @@ class Gnosis {
     return this._getAddress(fallbackAbi);
   }
 
-  _getCreateCallContractAddress() {
-    return this._getAddress(createCallAbi);
-  }
-
   _getAddress(abi) {
     const address = abi.networkAddresses[window[appName].network.chainId];
     if (!address) throw "Network not supported";
@@ -111,9 +71,3 @@ class Gnosis {
 }
 
 export default Gnosis;
-
-/**
- * signTransaction from metamask
- *
- * ownable erc20 is ERC20
- */

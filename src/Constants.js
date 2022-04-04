@@ -1,5 +1,7 @@
 const appName = "daouniverse";
 
+const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
+
 const id = {
   input: {
     token: {
@@ -72,4 +74,5 @@ module.exports = {
   supportedNetworks,
   token,
   gnosis,
+  ZERO_ADDRESS,
 };

@@ -9,6 +9,8 @@ import SelectSafes from "../../components/dashboard/SelectSafes";
 import CreateSafe from "../../components/dashboard/CreateSafe";
 import SafeDetails from "../../components/dashboard/SafeDetails";
 import DaoERC20 from "./DaoERC20";
+import Safe from "../../helpers/gnosis/Safe";
+import { getErc20TokenContractEncoded } from "../../helpers/token/Token";
 
 const styles = {
   textarea: {
@@ -16,7 +18,7 @@ const styles = {
   },
 };
 
-class Safe extends React.Component {
+class SafeComponent extends React.Component {
   constructor(props) {
     super(props);
     this.gnosis = new Gnosis();
@@ -25,6 +27,7 @@ class Safe extends React.Component {
       safes: [],
       safeDetails: undefined,
       currentSafe: undefined,
+      currentSafeObj: undefined,
     };
 
     this.state = { ...this.initialState };
@@ -55,7 +58,10 @@ class Safe extends React.Component {
   }
 
   selectSafe(safeOption) {
-    this.setState({ currentSafe: safeOption.value });
+    this.setState({
+      currentSafe: safeOption.value,
+      currentSafeObj: new Safe(safeOption.value, window[appName].wallet),
+    });
     this.getSafeDetails(safeOption.value);
   }
 
@@ -78,19 +84,15 @@ class Safe extends React.Component {
     const _registrar = token.registrar[window[appName].network.chainId];
     const _owner = this.state.currentSafe;
 
-    await this.gnosis.deployContract(this.state.currentSafe, [
-      _owner,
-      _registrar,
-      _name,
-      _symbol,
-      _initialAmount,
-      _decimals,
-    ]);
+    await this.state.currentSafeObj.deployContract(
+      getErc20TokenContractEncoded(_owner, _registrar, _name, _symbol, _initialAmount, _decimals),
+      "0x000000000000000000000000E52772e599b3fa747Af9595266b527A31611cebd000000000000000000000000000000000000000000000000000000000000000001"
+    );
   }
 
   async getSafesForOwner() {
     const safes = await network.getSafesForOwner(window[appName].account);
-    this.setState({ safes, currentSafe: safes[0] });
+    this.setState({ safes, currentSafe: safes[0], currentSafeObj: new Safe(safes[0], window[appName].wallet) });
   }
 
   async getSafeDetails(safeAddress) {
@@ -105,9 +107,22 @@ class Safe extends React.Component {
         <SafeDetails safeDetails={this.state.safeDetails} />
         <CreateSafe createSafe={this.createSafe} />
         <DaoERC20 currentSafe={this.state.currentSafe} createToken={this.createToken} />
+        <button
+          onClick={async () =>
+            this.state.currentSafeObj.signMessage(
+              await this.state.currentSafeObj.getTransactionHash(
+                "0xE52772e599b3fa747Af9595266b527A31611cebd",
+                100000,
+                0
+              )
+            )
+          }
+        >
+          Get Nonce
+        </button>
       </div>
     );
   }
 }
 
-export default Safe;
+export default SafeComponent;

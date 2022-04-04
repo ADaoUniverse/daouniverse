@@ -27,7 +27,6 @@ export default ({ owner }) => {
   };
 
   useEffect(() => {
-    console.log(owner)
     getTokens();
   }, [owner]);
 
