@@ -1,8 +1,8 @@
 import { ethers } from "ethers";
 import React from "react";
-import daoErc20Abi from "../abi/token/DaoERC20.json";
-import { appName } from "../Constants";
-import Address from "./Address";
+import daoErc20Abi from "../../../abi/token/DaoERC20.json";
+import { appName } from "../../../Constants";
+import Address from "../../Address";
 
 class TokenDetails extends React.Component {
   constructor(props) {
@@ -24,7 +24,7 @@ class TokenDetails extends React.Component {
     const decimals = parseInt((await token.decimals()).toString());
     const symbol = (await token.symbol()).toString();
     const totalSupply = (await token.totalSupply()).toString();
-    const balance = (await token.balanceOf(this.props.owner)).div(10 ** decimals).toString();
+    const balance = (await token.balanceOf(this.props.owner)).toString();
 
     this.setState({ name, symbol, decimals, totalSupply: totalSupply.toString(), balance });
   }

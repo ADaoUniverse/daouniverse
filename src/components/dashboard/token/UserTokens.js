@@ -5,7 +5,7 @@ import { appName, token } from "../../../Constants";
 import tokenRegistrarAbi from "../../../abi/token/TokenRegistrar.json";
 
 import Address from "../../Address";
-import TokenDetails from "../../TokenDetails";
+import TokenDetails from "./TokenDetails";
 
 export default ({ owner }) => {
   const [tokens, setTokens] = useState([]);
