@@ -15,7 +15,12 @@ const ExistingSpaces = ({ spaces }) => {
       </div>
     );
   }
-  return <div>{_spaces}</div>;
+  return (
+    <div>
+      <h5>My Spaces</h5>
+      {_spaces}
+    </div>
+  );
 };
 
 const MyEnsDomains = ({ ensDomains, existingSpaces, setSelectedDomain }) => {
@@ -44,7 +49,7 @@ const CreateSpace = ({ newEnsDomainOptions, setSelectedDomain }) => {
   return (
     <div>
       <Dropdown options={newEnsDomainOptions} onChange={setSelectedDomain} />
-      <input id={id.input.snapshot.ENS} placeholder="ENS" disabled={true}/>
+      <input id={id.input.snapshot.ENS} placeholder="ENS" disabled={true} />
       <input id={id.input.snapshot.SPACE_NAME} placeholder="Space Name" />
       <input id={id.input.snapshot.SPACE_SYMBOL} placeholder="Space Symbol" />
       <button onClick={Snapshot.createSpace}>Create Space</button>

@@ -31,9 +31,9 @@ const createSpace = async () => {
   const _spaceName = document.getElementById(id.input.snapshot.SPACE_NAME).value;
   const _spaceSymbol = document.getElementById(id.input.snapshot.SPACE_SYMBOL).value;
 
-  if (!_ens) return alert("Snapshot ENS Requried");
-  if (!_spaceName) return alert("Snapshot Name Requried");
-  if (!_spaceSymbol) return alert("Snapshot Symbol Requried");
+  if (!_ens) return alert("Snapshot ENS Required");
+  if (!_spaceName) return alert("Snapshot Name Required");
+  if (!_spaceSymbol) return alert("Snapshot Symbol Required");
 
   const _acc = window[appName].account;
 
