@@ -38,9 +38,10 @@ module.exports = {
       if (_cb) return _cb(data);
       else return data;
     },
-    createSpace: async (_body) => {
-      return await postRequest(snapshot.api.CREATE_SAFE(), _body);
+    rest: async (_body) => {
+      return await postRequest(snapshot.api.REST(), _body);
     },
+    leaveSpace: async (_body) => {},
   },
 
   ensApi: {

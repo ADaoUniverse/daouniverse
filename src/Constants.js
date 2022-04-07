@@ -89,7 +89,7 @@ const snapshot = {
     1: "https://hub.snapshot.org",
   },
   api: {
-    CREATE_SAFE: () => `${_baseApi(snapshot)}/api/msg`,
+    REST: () => `${_baseApi(snapshot)}/api/msg`,
     GRAPHQL: () => `${_baseApi(snapshot)}/graphql`,
   },
 };

@@ -109,6 +109,24 @@ const getFollowedSpaces = async (_cb, _first = 10, _skip = 0) => {
   snapshotApi.graphQl(_query, _cb, "data.follows");
 };
 
+/**
+ * alias is used to bypass signing.
+ */
+const getAlias = async () => {
+  const _query = `
+  query Aliases {
+    aliases(
+      where: {
+        address: "${window[appName].account}"
+      }
+    ) {
+      alias
+    }
+  }`;
+  const res = (await snapshotApi.graphQl(_query, undefined, "data.aliases"))[0];
+  return res.alias;
+};
+
 const createSpace = async () => {
   const _ens = document.getElementById(id.input.snapshot.ENS).value;
   const _spaceName = document.getElementById(id.input.snapshot.SPACE_NAME).value;
@@ -172,7 +190,101 @@ const createSpace = async () => {
     },
   };
 
-  const res = await snapshotApi.createSpace(body);
+  const res = await snapshotApi.rest(body);
+  console.log(res);
+  return res;
+};
+
+const leaveSpace = async (_space) => {
+  // const _alias = await getAlias();
+  const _acc = window[appName].account;
+
+  const domain = {
+    name: "snapshot",
+    version: "0.1.4",
+  };
+
+  const types = {
+    Unfollow: [
+      {
+        name: "from",
+        type: "address",
+      },
+      {
+        name: "space",
+        type: "string",
+      },
+    ],
+  };
+
+  const message = {
+    from: _acc,
+    space: _space.id,
+    timestamp: Math.floor(Date.now() / 1000),
+  };
+
+  console.log(message);
+
+  const sign = await window[appName].wallet.getSigner()._signTypedData(domain, types, message);
+  const body = {
+    // address: _alias,
+    address: _acc,
+    sig: sign,
+    data: {
+      domain,
+      types,
+      message,
+    },
+  };
+
+  console.log(body);
+
+  const res = await snapshotApi.rest(body);
+  console.log(res);
+  return res;
+};
+
+const joinSpace = async (_space) => {
+  // const _alias = await getAlias();
+  const _acc = window[appName].account;
+
+  const domain = {
+    name: "snapshot",
+    version: "0.1.4",
+  };
+
+  const types = {
+    Follow: [
+      {
+        name: "from",
+        type: "address",
+      },
+      {
+        name: "space",
+        type: "string",
+      },
+    ],
+  };
+
+  const message = {
+    from: _acc,
+    space: _space.id,
+    timestamp: Math.floor(Date.now() / 1000),
+  };
+
+  const sign = await window[appName].wallet.getSigner()._signTypedData(domain, types, message);
+  const body = {
+    // address: _alias,
+    address: _acc,
+    sig: sign,
+    data: {
+      domain,
+      types,
+      message,
+    },
+  };
+
+  const res = await snapshotApi.rest(body);
   console.log(res);
   return res;
 };
@@ -259,10 +371,6 @@ const voteProposal = async (_proposal, _voteIndex) => {
   }
 };
 
-const getVotes = async(_proposal)=>{
-
-}
-
 export default {
   getEnsDomainsByAccount,
   getSpace,
@@ -270,6 +378,8 @@ export default {
   getSpacesIn,
   getFollowedSpaces,
   createSpace,
+  leaveSpace,
+  joinSpace,
   getProposals,
   createProposal,
   voteProposal,

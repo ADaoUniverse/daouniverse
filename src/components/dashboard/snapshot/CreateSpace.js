@@ -143,11 +143,13 @@ const Space = ({ space, isJoined }) => {
       <CreateProposal space={space} />
     );
   };
-  const joinSpace = () => {
-    alert("Join Space");
+  const joinSpace = async () => {
+    await Snapshot.joinSpace(space);
+    alert("Space joined");
   };
-  const exitSpace = () => {
-    alert("Leave Space");
+  const leaveSpace = async () => {
+    await Snapshot.leaveSpace(space);
+    alert("Space left");
   };
   const deleteSpace = () => {
     alert("delete Space");
@@ -160,7 +162,7 @@ const Space = ({ space, isJoined }) => {
   ];
 
   if (isJoined) {
-    tools.push(<img className="tool" src="/icons/exit.svg" onClick={exitSpace} />);
+    tools.push(<img className="tool" src="/icons/exit.svg" onClick={leaveSpace} />);
   } else {
     tools.push(<img className="tool" src="/icons/join.svg" onClick={joinSpace} />);
   }
