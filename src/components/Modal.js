@@ -4,6 +4,19 @@ import Modal from "react-modal";
 import { appName } from "../Constants";
 import DataBridge from "../helpers/DataBridge";
 
+const modalStyles = {
+  content: {
+    width: "fit-content",
+    height: "fit-content",
+    top: "50%",
+    left: "50%",
+    right: "auto",
+    bottom: "auto",
+    marginRight: "-50%",
+    transform: "translate(-50%, -70%)",
+  },
+};
+
 export default ({ id }) => {
   const [isOpen, setIsOpen] = useState(false);
   const [children, setChildren] = useState();
@@ -23,7 +36,7 @@ export default ({ id }) => {
 
   return (
     <div>
-      <Modal isOpen={isOpen}>
+      <Modal isOpen={isOpen} style={modalStyles}>
         <button onClick={handleClose}>Close</button>
         {children}
       </Modal>

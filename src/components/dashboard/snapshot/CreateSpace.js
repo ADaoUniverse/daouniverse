@@ -14,6 +14,13 @@ const Proposal = ({ proposal }) => {
     const res = await Snapshot.voteProposal(proposal, voteOption.value);
     alert("Vote recorded");
   };
+
+  let disabledMsg = undefined;
+  const now = Math.floor(Date.now() / 1000);
+  if (now < proposal.start) {
+    disabledMsg = `voting starts at ${new Date(proposal.start * 1000)}`;
+  }
+
   return (
     <div>
       <div>
@@ -26,7 +33,10 @@ const Proposal = ({ proposal }) => {
         value={voteOption}
         onChange={setVoteOption}
       />
-      <button onClick={vote}>Vote</button>
+      <button onClick={vote} disabled={disabledMsg}>
+        Vote
+      </button>
+      <h5>{disabledMsg}</h5>
     </div>
   );
 };
@@ -75,7 +85,7 @@ const CreateProposal = ({ space }) => {
     <div>
       <div>
         <h4>
-          {space.name} ({space.id})
+          Create Proposal in {space.name} ({space.id})
         </h4>
       </div>
       <input id={id.input.snapshot.PROPOSAL_TITLE} placeholder="title" />
