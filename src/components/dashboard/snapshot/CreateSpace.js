@@ -14,29 +14,55 @@ const Proposal = ({ proposal }) => {
     const res = await Snapshot.voteProposal(proposal, voteOption.value);
     alert("Vote recorded");
   };
+  const voteOptions = proposal.choices.map((c, i) => {
+    return { label: c, value: i };
+  });
 
-  let disabledMsg = undefined;
-  const now = Math.floor(Date.now() / 1000);
-  if (now < proposal.start) {
-    disabledMsg = `voting starts at ${new Date(proposal.start * 1000)}`;
+  let isVotingDisabled = true;
+  let message = undefined;
+  let winner = undefined;
+  switch (proposal.state.toLowerCase()) {
+    case "pending":
+      message = `voting starts at ${new Date(proposal.start * 1000)}`;
+      break;
+    case "active":
+      message = `voting ends at ${new Date(proposal.end * 1000)}`;
+      isVotingDisabled = false;
+      break;
+    case "closed":
+      message = `voting ended at ${new Date(proposal.end * 1000)}`;
+      winner = {
+        score: -1,
+        index: -1,
+      };
+      for (let i = 0; i < proposal.scores_by_strategy.length; i++) {
+        const _score = proposal.scores_by_strategy[i].reduce((a, b) => a + b);
+        if (_score > winner.score) {
+          winner.score = _score;
+          winner.index = i;
+          winner.option = voteOptions[winner.index];
+        }
+      }
+      break;
   }
 
   return (
     <div>
       <div>
-        <h4>{proposal.title}</h4>
+        <h4>
+          {proposal.title} [{proposal.state}] {winner ? `[${winner.option.label}]` : ""}
+        </h4>
       </div>
       <Dropdown
-        options={proposal.choices.map((c, i) => {
-          return { label: c, value: i };
-        })}
-        value={voteOption}
+        options={voteOptions}
+        value={winner ? winner.option : voteOption}
         onChange={setVoteOption}
+        disabled={isVotingDisabled}
       />
-      <button onClick={vote} disabled={disabledMsg}>
+      <button onClick={vote} disabled={isVotingDisabled}>
         Vote
       </button>
-      <h5>{disabledMsg}</h5>
+      *{message}
     </div>
   );
 };
@@ -51,7 +77,7 @@ const ViewProposals = ({ space }) => {
   return (
     <div>
       <h4>
-        Open Proposals In {space.name} ({space.id})
+        Latest Proposals In {space.name} ({space.id})
       </h4>
       {proposals.map((p) => (
         <Proposal proposal={p} />

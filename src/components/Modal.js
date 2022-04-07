@@ -13,7 +13,9 @@ const modalStyles = {
     right: "auto",
     bottom: "auto",
     marginRight: "-50%",
-    transform: "translate(-50%, -70%)",
+    transform: "translate(-50%, -50%)",
+    maxHeight: "70vh",
+    overflowY: "auto",
   },
 };
 

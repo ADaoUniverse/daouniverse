@@ -183,8 +183,7 @@ const getProposals = async (_space, _cb) => {
       first: 20,
       skip: 0,
       where: {
-        space_in: ["${_space.id}"],
-        state: "pending"
+        space_in: ["${_space.id}"]
       },
       orderBy: "created",
       orderDirection: desc
@@ -199,6 +198,7 @@ const getProposals = async (_space, _cb) => {
       state
       author
       type
+      scores_by_strategy
       space {
         id
         name
@@ -258,6 +258,10 @@ const voteProposal = async (_proposal, _voteIndex) => {
     throw e;
   }
 };
+
+const getVotes = async(_proposal)=>{
+
+}
 
 export default {
   getEnsDomainsByAccount,
