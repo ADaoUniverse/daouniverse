@@ -5,6 +5,13 @@
 @import "HoverTooltip.css";
 @import "Toggle.css";
 
+input:disabled,
+textarea:disabled,
+div:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
 input,
 textarea {
   background-color: #00000000;

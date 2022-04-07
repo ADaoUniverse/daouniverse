@@ -17,6 +17,9 @@ class Main extends React.Component {
     window[appName] = {};
     window[appName].databridge = new DataBridge();
     window[appName].ethers = ethers;
+
+    // todo: remove this
+    window.ethers = ethers
   }
 
   render() {

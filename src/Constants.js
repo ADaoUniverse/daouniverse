@@ -10,12 +10,21 @@ const id = {
       INITIAL_AMOUNT: "input_token_intial_amount",
       DECIMALS: "input_token_decimals",
     },
+    snapshot: {
+      ENS: "input_snapshot_ens",
+      SPACE_NAME: "input_snapshot_space_name",
+      SPACE_SYMBOL: "input_snapshot_space_symbol",
+    },
   },
 };
 
 const headers = {
   acceptJson: {
     accept: "application/json",
+  },
+  postJson: {
+    accept: "application/json",
+    "content-type": "application/json",
   },
 };
 
@@ -59,12 +68,31 @@ const gnosis = {
     1313161554: "https://safe-transaction.aurora.gnosis.io",
   },
   api: {
-    OWNER_SAFES: (owner) => `${_baseApi()}/api/v1/owners/${owner}/safes/`,
-    SAFE_DETAILS: (safe) => `${_baseApi()}/api/v1/safes/${safe}/`,
+    OWNER_SAFES: (owner) => `${_baseApi(gnosis)}/api/v1/owners/${owner}/safes/`,
+    SAFE_DETAILS: (safe) => `${_baseApi(gnosis)}/api/v1/safes/${safe}/`,
   },
 };
 
-const _baseApi = () => gnosis.baseapi[window[appName].network.chainId];
+const snapshot = {
+  baseapi: {
+    1: "https://hub.snapshot.org",
+  },
+  api: {
+    CREATE_SAFE: () => `${_baseApi(snapshot)}/api/msg`,
+    GRAPHQL:()=>`${_baseApi(snapshot)}/graphql`
+  },
+};
+
+const ens = {
+  baseapi: {
+    1: "https://api.thegraph.com",
+  },
+  api: {
+    GRAPHQL: () => `${_baseApi(ens)}/subgraphs/name/ensdomains/ens`,
+  },
+};
+
+const _baseApi = (module) => module.baseapi[window[appName].network.chainId];
 
 module.exports = {
   appName,
@@ -74,5 +102,7 @@ module.exports = {
   supportedNetworks,
   token,
   gnosis,
+  snapshot,
+  ens,
   ZERO_ADDRESS,
 };

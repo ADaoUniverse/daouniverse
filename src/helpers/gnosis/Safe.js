@@ -16,6 +16,7 @@ class Safe {
     // todo: remove this
     window.safeContract = this.safeContract;
     window.signContract = this.signContract;
+
   }
 
   async getNonce() {

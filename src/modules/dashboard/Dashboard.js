@@ -4,6 +4,7 @@ import SafeComponent from "./SafeComponent";
 import Address from "../../components/Address";
 import Toggle from "../../components/Toggle";
 import DataBridge from "../../helpers/DataBridge";
+import SnapshotComponent from "./SnapshotComponent";
 
 class Dashboard extends React.Component {
   constructor(props) {
@@ -24,6 +25,7 @@ class Dashboard extends React.Component {
           <Toggle onChange={this.changeTheme} />
         </h3>
         <SafeComponent />
+        <SnapshotComponent />
       </div>
     );
   }

@@ -2,7 +2,7 @@ import React from "react";
 
 import Gnosis from "../../helpers/gnosis/Gnosis";
 
-import network from "../../helpers/gnosis/Network";
+import { gnosisApi } from "../../helpers/Network";
 import DataBridge from "../../helpers/DataBridge";
 import { appName, id, token } from "../../Constants";
 import SelectSafes from "../../components/dashboard/SelectSafes";
@@ -89,13 +89,13 @@ class SafeComponent extends React.Component {
   }
 
   async getSafesForOwner() {
-    const safes = await network.getSafesForOwner(window[appName].account);
+    const safes = await gnosisApi.getSafesForOwner(window[appName].account);
     this.setState({ safes });
     this._setCurrentSafe(safes[0]);
   }
 
   async getSafeDetails(safeAddress) {
-    const safeDetails = await network.getSafeDetails(safeAddress);
+    const safeDetails = await gnosisApi.getSafeDetails(safeAddress);
     this.setState({ safeDetails });
   }
 
