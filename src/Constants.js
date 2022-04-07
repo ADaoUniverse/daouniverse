@@ -18,6 +18,13 @@ const id = {
       ENS: "input_snapshot_ens",
       SPACE_NAME: "input_snapshot_space_name",
       SPACE_SYMBOL: "input_snapshot_space_symbol",
+      PROPOSAL_TITLE: "input_snapshot_proposal_title",
+      PROPOSAL_OPTION: "input_snapshot_proposal_option",
+    },
+  },
+  modal: {
+    space: {
+      CREATE_PROPOSAL: "create_proposal",
     },
   },
 };
@@ -110,4 +117,5 @@ module.exports = {
   snapshot,
   ens,
   ZERO_ADDRESS,
+  _baseApi,
 };

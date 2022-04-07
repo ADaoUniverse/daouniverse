@@ -6,6 +6,9 @@ class DataBridge {
     REQUEST_NETWORK_CHANGE: "request_network_change",
     REQUEST_THEME_TOGGLE: "request_theme_toggle",
     TOKEN_CREATED: "token_created",
+
+    OPEN_MODAL: (id) => `open_modal_${id}`,
+    CLOSE_MODAL: (id) => `close_modal_${id}`,
   };
 
   topics = {};
