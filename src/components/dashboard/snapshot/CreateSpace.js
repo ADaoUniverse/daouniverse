@@ -1,4 +1,4 @@
-import { id } from "../../../Constants";
+import { id, links } from "../../../Constants";
 import { useEffect, useState } from "react";
 import Dropdown from "react-dropdown";
 import "react-dropdown/style.css";
@@ -11,13 +11,32 @@ const ExistingSpaces = ({ spaces }) => {
     const space = spaces[i];
     _spaces.push(
       <div>
-        <b>{space.name}</b> ({space.id})
+        <b>{space.name}</b> ({space.id}) - {space.members.length} members
       </div>
     );
   }
   return (
     <div>
       <h5>My Spaces</h5>
+      {_spaces}
+    </div>
+  );
+};
+
+const JoinedSpaces = ({ spaces }) => {
+  console.log(spaces);
+  const _spaces = [];
+  for (let i = 0; i < spaces.length; i++) {
+    const space = spaces[i].space;
+    _spaces.push(
+      <div>
+        <b>{space.name}</b> ({space.id}) - {space.members.length} members
+      </div>
+    );
+  }
+  return (
+    <div>
+      <h5>Joined Spaces</h5>
       {_spaces}
     </div>
   );
@@ -46,6 +65,12 @@ const MyEnsDomains = ({ ensDomains, existingSpaces, setSelectedDomain }) => {
 };
 
 const CreateSpace = ({ newEnsDomainOptions, setSelectedDomain }) => {
+  if (!newEnsDomainOptions.length)
+    return (
+      <div>
+        <button onClick={() => window.open(links.BUY_ENS_DOMAIN, "_blank").focus()}>Register New Domain</button>
+      </div>
+    );
   return (
     <div>
       <Dropdown options={newEnsDomainOptions} onChange={setSelectedDomain} />
@@ -61,21 +86,25 @@ export default () => {
   const [ensDomains, setEnsDomains] = useState([]);
   const [selectedDomain, setSelectedDomain] = useState();
   const [existingSpaces, setExistingSpaces] = useState([]);
+  const [followedSpaces, setFollowedSpaces] = useState([]);
 
-  useEffect(() => {
-    Snapshot.getEnsDomainsByAccount(setEnsDomains);
-  }, []);
-
-  if (ensDomains.length && !existingSpaces.length) {
+  const handleSetEnsDomains = (domains) => {
+    setEnsDomains(domains);
     Snapshot.getSpacesIn(
-      ensDomains.map((obj) => obj.name),
+      domains.map((obj) => obj.name),
       setExistingSpaces
     );
-  }
+  };
+
+  useEffect(() => {
+    Snapshot.getEnsDomainsByAccount(handleSetEnsDomains);
+    Snapshot.getFollowedSpaces(setFollowedSpaces);
+  }, []);
 
   return (
     <div>
       <MyEnsDomains ensDomains={ensDomains} setSelectedDomain={setSelectedDomain} existingSpaces={existingSpaces} />
+      <JoinedSpaces spaces={followedSpaces} />
     </div>
   );
 };

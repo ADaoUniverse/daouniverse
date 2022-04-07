@@ -26,6 +26,27 @@ const getSpacesIn = async (ensDomains, _cb) => {
   snapshotApi.graphQl(_query, _cb, "data.spaces");
 };
 
+const getFollowedSpaces = async (_cb) => {
+  const _query = `query {
+    follows(
+      first: 10,
+      skip: 0,
+      where: {
+        follower: "${window[appName].account}"
+      }
+    ) {
+      follower
+      space {
+        id
+        name
+        members
+      }
+      created
+    }
+  }`;
+  snapshotApi.graphQl(_query, _cb, "data.follows");
+};
+
 const createSpace = async () => {
   const _ens = document.getElementById(id.input.snapshot.ENS).value;
   const _spaceName = document.getElementById(id.input.snapshot.SPACE_NAME).value;
@@ -99,5 +120,6 @@ export default {
   getSpace,
   getSpaces,
   getSpacesIn,
+  getFollowedSpaces,
   createSpace,
 };

@@ -2,6 +2,10 @@ const appName = "daouniverse";
 
 const ZERO_ADDRESS = "0x0000000000000000000000000000000000000000";
 
+const links = {
+  BUY_ENS_DOMAIN: "https://app.ens.domains/",
+};
+
 const id = {
   input: {
     token: {
@@ -79,7 +83,7 @@ const snapshot = {
   },
   api: {
     CREATE_SAFE: () => `${_baseApi(snapshot)}/api/msg`,
-    GRAPHQL:()=>`${_baseApi(snapshot)}/graphql`
+    GRAPHQL: () => `${_baseApi(snapshot)}/graphql`,
   },
 };
 
@@ -96,6 +100,7 @@ const _baseApi = (module) => module.baseapi[window[appName].network.chainId];
 
 module.exports = {
   appName,
+  links,
   id,
   headers,
   chainexplorer,
