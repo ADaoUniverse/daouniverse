@@ -323,8 +323,8 @@ const getProposals = async (_space, _cb) => {
 const createProposal = async (_space, _title, _options) => {
   const snapshotClient = new SnapshotLib.Client712(_baseApi(snapshot));
 
-  let delay = 0;
-  let period = 0;
+  let delay = 60 * 60;
+  let period = 60 * 60 * 5;
   if (_space.voting) {
     delay = _space.voting.delay || delay;
     period = _space.voting.period || period;
