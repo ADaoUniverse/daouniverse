@@ -10,6 +10,15 @@ const getErc20TokenContractEncoded = (_owner, _registrar, _name, _symbol, _initi
   return res;
 };
 
+const approveAllowance = async (tokenAddress, spenderAddress, allowanceAmount) => {
+  const tokenContract = new ethers.Contract(tokenAddress, DaoERC20Abi, window[appName].wallet.getSigner());
+  console.log(tokenAddress, spenderAddress, allowanceAmount);
+  const res = await tokenContract.approve(spenderAddress, allowanceAmount);
+  console.log(res);
+  alert("approving allowance");
+};
+
 module.exports = {
   getErc20TokenContractEncoded,
+  approveAllowance,
 };

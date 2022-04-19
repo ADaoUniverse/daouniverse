@@ -21,6 +21,12 @@ const id = {
       PROPOSAL_TITLE: "input_snapshot_proposal_title",
       PROPOSAL_OPTION: "input_snapshot_proposal_option",
     },
+    vault: {
+      APPROVE_ALLOWANCE_AMOUNT: "input_vault_approve_allowance_amount",
+      DEPOSIT_VAULT_ADDRESS: "input_vault_deposit_vault_address",
+      DEPOSIT_TOKEN_ADDRESS: "input_vault_deposit_token_address",
+      DEPOSIT_TOKEN_AMOUNT: "input_vault_deposit_token_amount",
+    },
   },
   modal: {
     space: {
