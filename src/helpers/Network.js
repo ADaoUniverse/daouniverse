@@ -21,7 +21,7 @@ const postRequest = async (_api, _body) => {
   return await response.json();
 };
 
-module.exports = {
+export default {
   gnosisApi: {
     getSafesForOwner: async (ownerAddress) => {
       return (await getRequest(gnosis.api.OWNER_SAFES(ownerAddress))).safes || [];
