@@ -1,7 +1,8 @@
 import SnapshotLib from "@snapshot-labs/snapshot.js";
+import Network from "../Network";
 
 const { appName, id, snapshot, _baseApi } = require("../../Constants");
-const { snapshotApi, ensApi } = require("../Network");
+// const { snapshotApi, ensApi } = require("../Network");
 
 const getEnsDomainsByAccount = async (cb) => {
   const _acc = window[appName].account.toLowerCase();
@@ -12,7 +13,7 @@ const getEnsDomainsByAccount = async (cb) => {
       }
     }
   }`;
-  const res = (await ensApi.getEnsByAccount(_query)).data.account.domains;
+  const res = (await Network.ensApi.getEnsByAccount(_query)).data.account.domains;
   if (cb) cb(res);
   else return res;
 };
@@ -39,12 +40,12 @@ const getSpace = async (ensDomain, _cb) => {
     }
   }
 }`;
-  snapshotApi.graphQl(_query, _cb, "data.space");
+  Network.snapshotApi.graphQl(_query, _cb, "data.space");
 };
 
 const getSpaces = async (_cb, _first = 10, _skip = 0) => {
   const _query = `query Spaces {spaces(first: ${_first},skip: ${_skip},orderBy: "created",orderDirection: asc) {id\nname\nabout\nnetwork\nsymbol\nstrategies {name\nparams}\nadmins\nmembers\nfilters {minScore\nonlyMembers}\nplugins}}`;
-  snapshotApi.graphQl(_query, _cb, "data.spaces");
+  Network.snapshotApi.graphQl(_query, _cb, "data.spaces");
 };
 
 const getSpacesIn = async (ensDomains, _cb) => {
@@ -73,7 +74,7 @@ const getSpacesIn = async (ensDomains, _cb) => {
       }
     }
   }`;
-  snapshotApi.graphQl(_query, _cb, "data.spaces");
+  Network.snapshotApi.graphQl(_query, _cb, "data.spaces");
 };
 
 const getFollowedSpaces = async (_cb, _first = 10, _skip = 0) => {
@@ -106,7 +107,7 @@ const getFollowedSpaces = async (_cb, _first = 10, _skip = 0) => {
       }
     }
   }`;
-  snapshotApi.graphQl(_query, _cb, "data.follows");
+  Network.snapshotApi.graphQl(_query, _cb, "data.follows");
 };
 
 /**
@@ -123,7 +124,7 @@ const getAlias = async () => {
       alias
     }
   }`;
-  const res = (await snapshotApi.graphQl(_query, undefined, "data.aliases"))[0];
+  const res = (await Network.snapshotApi.graphQl(_query, undefined, "data.aliases"))[0];
   return res.alias;
 };
 
@@ -190,7 +191,7 @@ const createSpace = async () => {
     },
   };
 
-  const res = await snapshotApi.rest(body);
+  const res = await Network.snapshotApi.rest(body);
   console.log(res);
   return res;
 };
@@ -239,7 +240,7 @@ const leaveSpace = async (_space) => {
 
   console.log(body);
 
-  const res = await snapshotApi.rest(body);
+  const res = await Network.snapshotApi.rest(body);
   console.log(res);
   return res;
 };
@@ -284,7 +285,7 @@ const joinSpace = async (_space) => {
     },
   };
 
-  const res = await snapshotApi.rest(body);
+  const res = await Network.snapshotApi.rest(body);
   console.log(res);
   return res;
 };
@@ -317,7 +318,7 @@ const getProposals = async (_space, _cb) => {
       }
     }
   }`;
-  snapshotApi.graphQl(_query, _cb, "data.proposals");
+  Network.snapshotApi.graphQl(_query, _cb, "data.proposals");
 };
 
 const createProposal = async (_space, _title, _options) => {

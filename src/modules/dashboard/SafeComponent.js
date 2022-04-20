@@ -10,7 +10,7 @@ import CreateSafe from "../../components/dashboard/CreateSafe";
 import SafeDetails from "../../components/dashboard/SafeDetails";
 import DaoERC20 from "./DaoERC20";
 import Safe from "../../helpers/gnosis/Safe";
-import { getErc20TokenContractEncoded } from "../../helpers/token/Token";
+import TokenHelper from "../../helpers/token/Token";
 
 const styles = {
   textarea: {
@@ -83,7 +83,7 @@ class SafeComponent extends React.Component {
     const _owner = this.state.currentSafe;
 
     await this.state.currentSafeObj.deployContract(
-      getErc20TokenContractEncoded(_owner, _registrar, _name, _symbol, _initialAmount, _decimals),
+      TokenHelper.getErc20TokenContractEncoded(_owner, _registrar, _name, _symbol, _initialAmount, _decimals),
       "0x000000000000000000000000E52772e599b3fa747Af9595266b527A31611cebd000000000000000000000000000000000000000000000000000000000000000001"
     );
   }

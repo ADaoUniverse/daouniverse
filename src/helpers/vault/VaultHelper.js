@@ -1,7 +1,7 @@
 import { ethers } from "ethers";
 import { appName, id } from "../../Constants";
 import vaultAbi from "../../abi/vault/vault.json";
-import { approveAllowance } from "../token/Token";
+import TokenHelper from "../token/Token";
 
 class VaultHelper {
   constructor() {}
@@ -10,7 +10,7 @@ class VaultHelper {
     const vaultAddress = document.getElementById(id.input.vault.DEPOSIT_VAULT_ADDRESS).value;
     const tokenAddress = document.getElementById(id.input.vault.DEPOSIT_TOKEN_ADDRESS).value;
     const allowanceAmount = document.getElementById(id.input.vault.APPROVE_ALLOWANCE_AMOUNT).value;
-    await approveAllowance(tokenAddress, vaultAddress, parseInt(allowanceAmount));
+    await TokenHelper.approveAllowance(tokenAddress, vaultAddress, parseInt(allowanceAmount));
   }
 
   async deposit() {

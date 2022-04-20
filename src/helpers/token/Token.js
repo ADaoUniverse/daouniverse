@@ -18,7 +18,7 @@ const approveAllowance = async (tokenAddress, spenderAddress, allowanceAmount) =
   alert("approving allowance");
 };
 
-module.exports = {
+export default {
   getErc20TokenContractEncoded,
   approveAllowance,
 };
