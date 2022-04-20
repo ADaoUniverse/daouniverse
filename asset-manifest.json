@@ -1,16 +1,16 @@
 {
   "files": {
     "main.css": "/daouniverse/static/css/main.ab09946b.css",
-    "main.js": "/daouniverse/static/js/main.f21c931a.js",
+    "main.js": "/daouniverse/static/js/main.450bd35f.js",
     "static/js/787.fb1a0c56.chunk.js": "/daouniverse/static/js/787.fb1a0c56.chunk.js",
     "static/media/logo.svg": "/daouniverse/static/media/logo.6ce24c58023cc2f8fd88fe9d219db6c6.svg",
     "index.html": "/daouniverse/index.html",
     "main.ab09946b.css.map": "/daouniverse/static/css/main.ab09946b.css.map",
-    "main.f21c931a.js.map": "/daouniverse/static/js/main.f21c931a.js.map",
+    "main.450bd35f.js.map": "/daouniverse/static/js/main.450bd35f.js.map",
     "787.fb1a0c56.chunk.js.map": "/daouniverse/static/js/787.fb1a0c56.chunk.js.map"
   },
   "entrypoints": [
     "static/css/main.ab09946b.css",
-    "static/js/main.f21c931a.js"
+    "static/js/main.450bd35f.js"
   ]
 }
