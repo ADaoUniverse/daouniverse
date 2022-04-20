@@ -1,0 +1,48 @@
+.settingsModal-container {
+  display: flex;
+  height: 100%;
+  background: var(--panel-background);
+}
+.settingsModal-container .side-panel {
+  width: 16%;
+  font-size: 0.95em;
+  background: var(--tbody-background);
+  padding: 32px;
+}
+.settingsModal-container .tab {
+  cursor: pointer;
+  border-left: 4px solid #00000000;
+  padding-left: 16px;
+  margin-top: 8px;
+  margin-bottom: 8px;
+  padding-top: 8px;
+  padding-bottom: 8px;
+  color: var(--of-button-font-color);
+}
+.settingsModal-container .tab:hover {
+  border-left: 4px solid var(--font-color-hint);
+}
+.settingsModal-container .active {
+  border-left: 4px solid var(--of-button-font-color);
+}
+.settingsModal-container .content {
+  margin-left: 64px;
+  margin-top: 32px;
+  padding-top: 20px;
+  padding-bottom: 20px;
+}
+.settingsModal-container input {
+  margin-top: 4px;
+  margin-bottom: 4px;
+}
+.settingsModal-container .buttons {
+  display: flex;
+}
+.settingsModal-container .buttons button {
+  flex: 1;
+  padding-top: 12px;
+  padding-bottom: 12px;
+}
+.settingsModal-container .buttons button:hover {
+  background: var(--font-color-hint);
+}

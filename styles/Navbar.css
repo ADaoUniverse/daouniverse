@@ -1,0 +1,14 @@
+.navbar {
+  display: flex;
+  height: 6rem;
+  justify-content: space-between;
+  align-items: center;
+  padding-top: 3rem;
+  padding-bottom: 3rem;
+}
+.navitem {
+  display: flex;
+}
+.navitem-logo {
+  height: 100%;
+}

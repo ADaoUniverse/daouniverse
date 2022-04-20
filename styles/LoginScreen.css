@@ -1,0 +1,21 @@
+.login {
+  position: relative;
+}
+
+.login .floating {
+  position: absolute;
+  width: 100%;
+}
+
+.connecting {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  align-content: center;
+  align-self: center;
+  height: 100vh;
+}
+
+.connecting .caption {
+  margin-left: 1rem;
+}
